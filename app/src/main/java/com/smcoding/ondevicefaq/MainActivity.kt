@@ -16,7 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import android.util.Log
 import com.smcoding.faqsdk.core.FaqSdk
-import com.smcoding.faqsdk.embedding.ONNXEmbedder
+import com.smcoding.faqsdk.embedding.legacy.ONNXEmbedder
 import com.smcoding.faqsdk.parser.FaqExtractor
 import com.smcoding.faqsdk.parser.PdfParser
 import com.smcoding.ondevicefaq.ui.theme.OnDeviceFaqTheme

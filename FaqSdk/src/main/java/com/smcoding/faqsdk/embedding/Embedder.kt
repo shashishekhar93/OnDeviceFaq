@@ -2,7 +2,7 @@ package com.smcoding.faqsdk.embedding
 
 interface Embedder {
 
-    fun embed(
+    suspend fun embed(
         text: String
     ): FloatArray
 }

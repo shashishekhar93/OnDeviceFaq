@@ -1,4 +1,4 @@
-package com.smcoding.faqsdk.embedding
+package com.smcoding.faqsdk.embedding.legacy
 
 import ai.djl.huggingface.tokenizers.HuggingFaceTokenizer
 import android.content.Context

@@ -1,6 +1,8 @@
-package com.smcoding.faqsdk.embedding
+package com.smcoding.faqsdk.embedding.legacy
 
 import ai.onnxruntime.OnnxTensor
+import com.smcoding.faqsdk.embedding.Embedder
+import com.smcoding.faqsdk.embedding.EmbeddingManager
 
 class ONNXEmbedder : Embedder {
 

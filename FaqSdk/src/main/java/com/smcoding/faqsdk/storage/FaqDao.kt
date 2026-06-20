@@ -9,43 +9,38 @@ import androidx.room.Query
 interface FaqDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(chunk: FaqChunk)
+    suspend fun insert(chunk: DocumentChunk)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(chunks: List<FaqChunk>)
+    suspend fun insertAll(chunks: List<DocumentChunk>)
 
-    @Query("SELECT * FROM faq_chunks")
-    suspend fun getAllFaqs(): List<FaqChunk>
+    @Query("SELECT * FROM document_chunks")
+    suspend fun getAllFaqs(): List<DocumentChunk>
 
     @Query(
         """
-        SELECT * FROM faq_chunks
+        SELECT * FROM document_chunks
         WHERE faqId = :faqId
         LIMIT 1
         """
     )
     suspend fun getFaqById(
         faqId: String
-    ): FaqChunk?
+    ): DocumentChunk?
 
     @Query(
         """
-        SELECT * FROM faq_chunks
+        SELECT * FROM document_chunks
         WHERE title LIKE '%' || :query || '%'
         """
     )
     suspend fun searchByTitle(
         query: String
-    ): List<FaqChunk>
+    ): List<DocumentChunk>
 
-    @Query(
-        """
-        SELECT COUNT(*) 
-        FROM faq_chunks
-        """
-    )
+    @Query("""SELECT COUNT(*)FROM document_chunks""")
     suspend fun getFaqCount(): Int
 
-    @Query("DELETE FROM faq_chunks")
+    @Query("DELETE FROM document_chunks")
     suspend fun clearAll()
 }

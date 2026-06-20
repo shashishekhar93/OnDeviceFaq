@@ -1,4 +1,4 @@
-package com.smcoding.faqsdk.embedding
+package com.smcoding.faqsdk.embedding.legacy
 
 object Tokenizer {
 

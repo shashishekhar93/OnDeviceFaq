@@ -3,8 +3,8 @@ package com.smcoding.faqsdk.storage
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "faq_chunks")
-data class FaqChunk(
+@Entity(tableName = "document_chunks")
+data class DocumentChunk(
 
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,

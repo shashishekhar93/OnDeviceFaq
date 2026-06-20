@@ -7,12 +7,12 @@ import android.util.Log
 import com.smcoding.faqsdk.debug.OrtxSmokeTest
 import com.smcoding.faqsdk.embedding.EmbeddingConverter
 import com.smcoding.faqsdk.embedding.EmbeddingManager
-import com.smcoding.faqsdk.embedding.ONNXEmbedder
+import com.smcoding.faqsdk.embedding.legacy.ONNXEmbedder
 import com.smcoding.faqsdk.parser.FaqExtractor
 import com.smcoding.faqsdk.parser.MarkdownParser
 import com.smcoding.faqsdk.parser.PdfParser
 import com.smcoding.faqsdk.search.SearchEngine
-import com.smcoding.faqsdk.storage.FaqChunk
+import com.smcoding.faqsdk.storage.DocumentChunk
 import com.smcoding.faqsdk.storage.FaqDatabase
 import com.smcoding.faqsdk.ui.FaqActivity
 import com.tom_roush.pdfbox.android.PDFBoxResourceLoader
@@ -57,7 +57,7 @@ object FaqSdk {
             val embedder =
                 ONNXEmbedder()
 
-            val faqChunks =
+            val documentChunks =
                 faqs.map {
 
                     val embedding =
@@ -77,7 +77,7 @@ object FaqSdk {
                     )
 
 
-                    FaqChunk(
+                    DocumentChunk(
                         faqId = it.faqId,
                         title = it.title,
                         content = it.content,
@@ -89,7 +89,7 @@ object FaqSdk {
 
             database
                 .faqDao()
-                .insertAll(faqChunks)
+                .insertAll(documentChunks)
         }
 
 

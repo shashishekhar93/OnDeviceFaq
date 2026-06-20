@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [
-        FaqChunk::class
+        DocumentChunk::class
     ],
     version = 2,
     exportSchema = false
