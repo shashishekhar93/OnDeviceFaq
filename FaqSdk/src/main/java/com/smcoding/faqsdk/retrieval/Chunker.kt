@@ -4,41 +4,57 @@ class Chunker {
 
     companion object {
 
-        private const val CHUNK_SIZE = 800
-
-        private const val OVERLAP = 150
+        private const val MAX_CHUNK_SIZE = 1000
     }
 
     fun chunk(
         text: String
     ): List<String> {
 
-        if (text.isBlank()) {
-            return emptyList()
-        }
+        val paragraphs =
+            text.split(
+                Regex("\\n\\s*\\n")
+            )
 
         val chunks =
             mutableListOf<String>()
 
-        var start = 0
+        val builder =
+            StringBuilder()
 
-        while (start < text.length) {
+        paragraphs.forEach { paragraph ->
 
-            val end =
-                minOf(
-                    start + CHUNK_SIZE,
-                    text.length
+            if (
+                builder.length +
+                paragraph.length >
+                MAX_CHUNK_SIZE
+            ) {
+
+                chunks.add(
+                    builder.toString()
+                        .trim()
                 )
 
-            chunks.add(
-                text.substring(
-                    start,
-                    end
-                )
+                builder.clear()
+            }
+
+            builder.append(
+                paragraph
             )
 
-            start +=
-                CHUNK_SIZE - OVERLAP
+            builder.append(
+                "\n\n"
+            )
+        }
+
+        if (
+            builder.isNotBlank()
+        ) {
+
+            chunks.add(
+                builder.toString()
+                    .trim()
+            )
         }
 
         return chunks

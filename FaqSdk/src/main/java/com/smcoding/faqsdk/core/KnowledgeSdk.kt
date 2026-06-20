@@ -10,6 +10,7 @@ import com.smcoding.faqsdk.parser.MarkdownParser
 import com.smcoding.faqsdk.parser.PdfParser
 import com.smcoding.faqsdk.retrieval.Chunker
 import com.smcoding.faqsdk.retrieval.Retriever
+import com.smcoding.faqsdk.retrieval.TfIdfRetriever
 import com.smcoding.faqsdk.storage.DocumentChunk
 import com.smcoding.faqsdk.storage.FaqDatabase
 import com.smcoding.faqsdk.ui.FaqActivity
@@ -113,6 +114,16 @@ object KnowledgeSdk {
                 .insertAll(
                     documentChunks
                 )
+
+            //debugPrintChunks()
+            val retriever =
+                TfIdfRetriever(
+                    database.faqDao()
+                )
+
+            retriever.debugQuery(
+                "climate change"
+            )
         }
     }
 
@@ -195,5 +206,29 @@ object KnowledgeSdk {
                 FaqActivity::class.java
             )
         )
+    }
+
+    fun debugPrintChunks() {
+
+        scope.launch {
+
+            val chunks =
+                database
+                    .faqDao()
+                    .getAllFaqs()
+
+            android.util.Log.d(
+                "CHUNK_COUNT",
+                chunks.size.toString()
+            )
+
+            chunks.forEachIndexed { index, chunk ->
+
+                android.util.Log.d(
+                    "CHUNK_$index",
+                    chunk.content.take(100)
+                )
+            }
+        }
     }
 }
