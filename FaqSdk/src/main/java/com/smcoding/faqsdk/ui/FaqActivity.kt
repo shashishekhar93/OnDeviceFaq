@@ -4,13 +4,10 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.smcoding.faqsdk.R
-import com.smcoding.faqsdk.core.FaqSdk
 import com.smcoding.faqsdk.model.Message
-import kotlinx.coroutines.launch
 
 class FaqActivity : AppCompatActivity() {
 

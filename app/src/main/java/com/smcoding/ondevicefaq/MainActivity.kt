@@ -14,11 +14,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import android.util.Log
-import com.smcoding.faqsdk.core.FaqSdk
-import com.smcoding.faqsdk.embedding.legacy.ONNXEmbedder
-import com.smcoding.faqsdk.parser.FaqExtractor
-import com.smcoding.faqsdk.parser.PdfParser
+import com.smcoding.faqsdk.core.KnowledgeSdk
+import com.smcoding.faqsdk.llm.KnowledgeConfig
 import com.smcoding.ondevicefaq.ui.theme.OnDeviceFaqTheme
 import java.io.File
 import java.io.FileOutputStream
@@ -33,45 +30,14 @@ class MainActivity : ComponentActivity() {
                     input.copyTo(output)
                 }
             }
-
-            // Test Utility for extraction
-            val pdfParser = PdfParser()
-            val faqExtractor = FaqExtractor()
-            val text = pdfParser.extractText(tempFile)
-            val faqs = faqExtractor.extractFaqs(text)
-            Log.d("FAQ_TEST", "Total FAQs = ${faqs.size}")
-
-            FaqSdk.importPdf(tempFile)
-            FaqSdk.openFaqScreen(this)
+            KnowledgeSdk.importPdf(tempFile)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val vector =
-            ONNXEmbedder()
-                .embed(
-                    "How do I reset password?"
-                )
-
-        Log.d(
-            "VECTOR_SIZE",
-            vector.size.toString()
-        )
-
-
-
-        val vocab =
-            assets.open("models/vocab.txt")
-                .bufferedReader()
-                .readLines()
-
-        Log.d(
-            "VOCAB_SIZE",
-            vocab.size.toString()
-        )
         // Initialize FAQ SDK
-        FaqSdk.initialize(applicationContext)
+        KnowledgeSdk.initialize(applicationContext, KnowledgeConfig())
         
         enableEdgeToEdge()
         setContent {
